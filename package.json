@@ -1,0 +1,26 @@
+{
+  "name": "node-jwt-authentication",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boeriksson/node-jwt-authentication.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boeriksson/node-jwt-authentication/issues"
+  },
+  "homepage": "https://github.com/boeriksson/node-jwt-authentication",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.4",
+    "jsonwebtoken": "^5.5.4",
+    "mongoose": "^4.4.0",
+    "morgan": "^1.6.1"
+  }
+}
