@@ -105,7 +105,7 @@ apiRoutes.post('/authenticate', function(req, res) {
     });
 });
 
-app.get('/duh', function(req, res) {
+app.get('/authenticateremote', function(req, res) {
     logger.debug("authenticate2 ");
 
     request
@@ -117,11 +117,16 @@ app.get('/duh', function(req, res) {
         })
         .end(
             function (err, result) {
+                var token;
                 if (err) {
                     logger.error('userservice authenticate', err);
                     return res.status(500).send('Failed to authenticate due to server error.');
+                } else {
+                    token = jwt.sign(result.body, app.get('superSecret'), {
+                        expiresInMinutes: 720 //epires in 12 hours
+                    });
                 }
-                return res.status(200).json(result.body);
+                return res.status(200).json(token);
             }
         );
 });
