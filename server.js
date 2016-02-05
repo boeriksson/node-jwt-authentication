@@ -10,6 +10,9 @@ var mongoose    = require('mongoose');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var User   = require('./app/models/user'); // get our mongoose model
+var log4js = require('log4js');
+var logger = log4js.getLogger('app');
+var request = require('superagent');
 
 // =======================
 // configuration =========
@@ -102,6 +105,26 @@ apiRoutes.post('/authenticate', function(req, res) {
     });
 });
 
+app.get('/duh', function(req, res) {
+    logger.debug("authenticate2 ");
+
+    request
+        .post('http://localhost:11111/auth/dispatcher')
+        .send({
+            clientId: 'DispatcherWeb',
+            username: 'bo',
+            password: 'password'
+        })
+        .end(
+            function (err, result) {
+                if (err) {
+                    logger.error('userservice authenticate', err);
+                    return res.status(500).send('Failed to authenticate due to server error.');
+                }
+                return res.status(200).json(result.body);
+            }
+        );
+});
 
 // route middleware to verify a token
 apiRoutes.use(function(req, res, next) {
